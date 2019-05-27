@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginVC" customModule="GitHubRepositories" customModuleProvider="target">
             <connections>
+                <outlet property="loginButton" destination="rSL-JV-bSt" id="a8X-pa-zo7"/>
+                <outlet property="passwordTextField" destination="gs1-YB-8nu" id="EHY-sp-pcB"/>
+                <outlet property="usernameTextField" destination="qhm-9G-i18" id="BlB-eX-ePC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,8 +22,55 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="0.86666666670000003" green="0.050980392159999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qhm-9G-i18">
+                    <rect key="frame" x="24" y="68" width="366" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="DWb-FZ-xrF"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" textContentType="username"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gs1-YB-8nu">
+                    <rect key="frame" x="24" y="146" width="366" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="21b-1X-OfT"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSL-JV-bSt">
+                    <rect key="frame" x="184.5" y="246" width="45" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Login"/>
+                    <connections>
+                        <action selector="loginButtonAction:" destination="-1" eventType="touchUpInside" id="AqF-9P-FRk"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qhm-9G-i18" secondAttribute="trailing" constant="24" id="M7H-zV-Xr3"/>
+                <constraint firstItem="gs1-YB-8nu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="OfD-cz-Ckw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gs1-YB-8nu" secondAttribute="trailing" constant="24" id="dJK-59-UYO"/>
+                <constraint firstItem="qhm-9G-i18" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="gLK-N9-GDo"/>
+                <constraint firstItem="gs1-YB-8nu" firstAttribute="top" secondItem="qhm-9G-i18" secondAttribute="bottom" constant="22" id="lQg-fM-rHN"/>
+                <constraint firstItem="qhm-9G-i18" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="24" id="pVa-sG-Kl2"/>
+                <constraint firstItem="rSL-JV-bSt" firstAttribute="top" secondItem="gs1-YB-8nu" secondAttribute="bottom" constant="44" id="tI2-a5-AnO"/>
+                <constraint firstItem="rSL-JV-bSt" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="xV5-Oh-tr6"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="jol-4O-sih" appends="YES" id="0Bk-0f-FhV"/>
+            </connections>
         </view>
+        <tapGestureRecognizer id="jol-4O-sih">
+            <connections>
+                <action selector="closeKeyboardAction:" destination="-1" id="zWd-s9-MbJ"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

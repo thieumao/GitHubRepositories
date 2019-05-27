@@ -10,21 +10,63 @@ import UIKit
 
 class LoginVC: UIViewController {
 
+    let viewModel = LoginViewModel()
+
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Login"
+        usernameTextField.delegate = self
+        usernameTextField.addTarget(self, action: #selector(usernameTextFieldDidChange(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange(_:)), for: .editingChanged)
 
-        // Do any additional setup after loading the view.
+        loginButton.isEnabled = viewModel.validatePassword(text: passwordTextField.text ?? "")
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func usernameTextFieldDidChange(_ textField: UITextField) {
+        updateLoginButtonStatus()
     }
-    */
 
+    @objc func passwordTextFieldDidChange(_ textField: UITextField) {
+        updateLoginButtonStatus()
+    }
+
+    // MARK: Action Methods
+    @IBAction func loginButtonAction(_ sender: Any) {
+        closeKeyboard()
+        viewModel.saveUserInfo()
+        openMainScreen()
+    }
+
+    @IBAction func closeKeyboardAction(_ sender: Any) {
+        closeKeyboard()
+    }
+
+    // MARK: Private Methods
+    private func openMainScreen() {
+        // open Main Screen
+    }
+
+    private func closeKeyboard() {
+        view.endEditing(true)
+    }
+
+    private func updateLoginButtonStatus() {
+        loginButton.isEnabled = validateCredentials()
+    }
+
+    private func validateCredentials() -> Bool{
+        return viewModel.validateUsername(text: usernameTextField.text ?? "")
+            && viewModel.validatePassword(text: passwordTextField.text ?? "")
+    }
+}
+
+extension LoginVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        passwordTextField.becomeFirstResponder()
+        return true
+    }
 }

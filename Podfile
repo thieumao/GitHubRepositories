@@ -12,6 +12,7 @@ target 'GitHubRepositories' do
     # Pods for testing
     pod 'RxSwift', '~> 5'
     pod 'RxCocoa', '~> 5'
+    pod 'Alamofire', '~> 4.8'
   end
 
   target 'GitHubRepositoriesUITests' do
