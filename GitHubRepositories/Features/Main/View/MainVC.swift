@@ -19,6 +19,7 @@ class MainVC: UIViewController {
 
     let viewModel = MainViewModel()
     let disposeBag = DisposeBag()
+    var state: MainState = .normal
 
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
@@ -28,18 +29,18 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self
+        searchingTableView.register(UINib(nibName: "SearchingCell", bundle: nil), forCellReuseIdentifier: "SearchingCell")
+        blindUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        blindUI()
-        viewModel.searchRepositories("thieumao")
     }
 
     private func blindUI() {
         viewModel.isSearching.asObservable().subscribe(onNext: { (isSearching) in
-            let state: MainState = isSearching ? .searching : .normal
-            self.updateUI(state)
+            self.state = isSearching ? .searching : .normal
+            self.updateUI()
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
 
         cancelButton.rx.tap.do(onNext:  {
@@ -47,9 +48,33 @@ class MainVC: UIViewController {
         }).subscribe(onNext: {
             self.viewModel.isSearching.value = false
         }).disposed(by: disposeBag)
+
+        searchTextField.rx.text.orEmpty
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .asObservable().bind(to: viewModel.searchInput).disposed(by: disposeBag)
+
+        viewModel.searchResult.asObservable().bind(to: searchingTableView.rx.items(cellIdentifier: "SearchingCell", cellType: SearchingCell.self)){ (index, repo, cell) in
+            cell.repository = repo
+        }.disposed(by: disposeBag)
+
+        searchingTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                if let cell = self?.searchingTableView.cellForRow(at: indexPath) as? SearchingCell,
+                    let repo = cell.repository {
+                    self?.openDetailRepositoryVC(repo)
+                }
+            }).disposed(by: disposeBag)
     }
 
-    private func updateUI(_ state: MainState) {
+    private func openDetailRepositoryVC(_ repo: Repository) {
+        let detailRepositoryVC = DetailRepositoryVC()
+        let viewModel = DetailRepositoryViewModel(repository: repo)
+        detailRepositoryVC.injectViewModel(with: viewModel)
+        navigationController?.pushViewController(detailRepositoryVC, animated: true)
+    }
+
+    private func updateUI() {
         switch state {
         case .normal:
             title = Constants.Titles.NORMAL
@@ -60,6 +85,7 @@ class MainVC: UIViewController {
             cancelButton.isHidden = true
             searchingTableView.isHidden = true
             normalTableView.isHidden = false
+            searchTextField.text = ""
         case .searching:
             title = Constants.Titles.SEARCHING
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constants.Buttons.POPULAR,
@@ -93,7 +119,9 @@ extension MainVC: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // todo: search
+        if let keyword = textField.text, state == .searching {
+            viewModel.searchRepositories(keyword)
+        }
         return true
     }
 }

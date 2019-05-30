@@ -8,16 +8,33 @@
 
 import RxSwift
 
-class MainViewModel {
-    var isSearching = Variable(false)
+class MainViewModel: NSObject {
     let disposeBag = DisposeBag()
+    var isSearching = Variable(false)
+    var searchInput = Variable<String>("")
+    var searchResult = Variable<[Repository]>([])
+
+    override init() {
+        super.init()
+        bindingData()
+    }
+
+    func bindingData() {
+        searchInput.asObservable().subscribe(onNext: { text in
+            self.searchRepositories(text)
+        }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
+    }
 
     // Mark: Search repositories
     func searchRepositories(_ text: String) {
-        SearchRepositoriesService().searchRepositories(keyword: text, success: {_ in 
-
+        guard !text.isEmpty else {
+            searchResult.value = []
+            return
+        }
+        SearchRepositoriesService().searchRepositories(keyword: text, success: { repos in
+            self.searchResult.value = repos
         }, failure: {
-
+            self.searchResult.value = []
         })
     }
 

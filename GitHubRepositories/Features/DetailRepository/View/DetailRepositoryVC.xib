@@ -10,8 +10,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RepositoryDetailVC" customModule="GitHubRepositories" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailRepositoryVC" customModule="GitHubRepositories" customModuleProvider="target">
             <connections>
+                <outlet property="descriptionLabel" destination="nGg-uC-lEd" id="60Y-Sw-suK"/>
+                <outlet property="forkCountLabel" destination="Zeu-JI-KwI" id="xeB-Mt-gBe"/>
+                <outlet property="fullnameLabel" destination="tRO-Td-JMo" id="r5z-N2-n61"/>
+                <outlet property="languageLabel" destination="k3U-Ja-Khw" id="hrK-pq-SNs"/>
+                <outlet property="startCountLabel" destination="kcX-An-i8l" id="yGg-eO-Vei"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -83,7 +88,6 @@
                                     <rect key="frame" x="8" y="66.5" width="367" height="0.5"/>
                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="B97-9N-tVF"/>
                                         <constraint firstAttribute="height" constant="0.5" id="GS0-TH-bbD"/>
                                     </constraints>
                                 </view>
@@ -123,8 +127,6 @@
                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="1kO-KX-UxG"/>
-                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="0.5" id="N7W-3m-S7M"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="xCf-Uf-q7B"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -163,9 +165,6 @@
                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="BvG-4N-PYo"/>
-                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="0.5" id="DYx-cr-daH"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="QbO-39-dER"/>
-                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="0.5" id="htz-yI-204"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -203,10 +202,6 @@
                                     <rect key="frame" x="8" y="66" width="367" height="0.5"/>
                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="0.5" id="9dB-3Z-8Du"/>
-                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="0.5" id="HBU-Qz-E0C"/>
-                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="0.5" id="NBR-Hm-CEI"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="NGP-el-AO5"/>
                                         <constraint firstAttribute="height" constant="0.5" id="sQe-X0-3r1"/>
                                     </constraints>
                                 </view>

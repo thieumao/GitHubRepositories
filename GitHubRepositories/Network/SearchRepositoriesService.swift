@@ -14,6 +14,7 @@ protocol SearchRepositoriesFetch {
 
 class SearchRepositoriesService: SearchRepositoriesFetch {
     func searchRepositories(keyword: String, success: @escaping ([Repository]) -> Void, failure: @escaping () -> Void) {
+        APIClient.cancelAllRequests()
         APIClient.loadData(request: APIRouter.searchRepositories(keyword: keyword), didFinishWithSuccess: { rawData in
             guard let totalCount = rawData[APIConstants.Common.TOTAL_COUNT] as? Int,
                 totalCount > 0,
