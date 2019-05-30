@@ -6,25 +6,16 @@
 //  Copyright © 2019 Mao. All rights reserved.
 //
 
-import UIKit
+import RxSwift
 
-class MainViewModel: UIViewController {
+class MainViewModel {
+    var isSearching = Variable(false)
+    let disposeBag = DisposeBag()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    // Mark: Others
+    func removeUserInfo() {
+        UserData.sharedInstance().isLogin = false
+        UserData.sharedInstance().username = ""
+        UserData.sharedInstance().password = ""
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

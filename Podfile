@@ -6,13 +6,14 @@ target 'GitHubRepositories' do
   use_frameworks!
 
   # Pods for GitHubRepositories
+  pod 'RxSwift', '~> 5'
+  pod 'RxCocoa', '~> 5'
+  pod 'Alamofire', '~> 4.8'
+  pod 'KeychainSwift', '~> 15.0'
 
   target 'GitHubRepositoriesTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'RxSwift', '~> 5'
-    pod 'RxCocoa', '~> 5'
-    pod 'Alamofire', '~> 4.8'
   end
 
   target 'GitHubRepositoriesUITests' do

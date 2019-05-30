@@ -9,22 +9,14 @@
 import UIKit
 
 class RepositoryDetailVC: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        title = Constants.Titles.REPOSITORY_DETAIL
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.Buttons.DELETE,
+                                                            style: .done, target: self,
+                                                            action: #selector(deleteButtonTapped))
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc public func deleteButtonTapped() {
     }
-    */
-
 }
