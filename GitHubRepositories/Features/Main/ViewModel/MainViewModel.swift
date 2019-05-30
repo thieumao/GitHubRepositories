@@ -12,6 +12,15 @@ class MainViewModel {
     var isSearching = Variable(false)
     let disposeBag = DisposeBag()
 
+    // Mark: Search repositories
+    func searchRepositories(_ text: String) {
+        SearchRepositoriesService().searchRepositories(keyword: text, success: {_ in 
+
+        }, failure: {
+
+        })
+    }
+
     // Mark: Others
     func removeUserInfo() {
         UserData.sharedInstance().isLogin = false

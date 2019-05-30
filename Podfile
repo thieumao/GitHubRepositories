@@ -9,6 +9,7 @@ target 'GitHubRepositories' do
   pod 'RxSwift', '~> 5'
   pod 'RxCocoa', '~> 5'
   pod 'Alamofire', '~> 4.8'
+  pod 'AlamofireObjectMapper', '~> 5.2'
   pod 'KeychainSwift', '~> 15.0'
 
   target 'GitHubRepositoriesTests' do

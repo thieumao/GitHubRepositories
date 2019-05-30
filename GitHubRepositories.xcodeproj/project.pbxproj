@@ -24,6 +24,7 @@
 		0C03722D229BA696003E4B3A /* RepositoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03722B229BA696003E4B3A /* RepositoryDetailVC.swift */; };
 		0C03722E229BA696003E4B3A /* RepositoryDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C03722C229BA696003E4B3A /* RepositoryDetailVC.xib */; };
 		0C037230229BA6AB003E4B3A /* RepositoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03722F229BA6AB003E4B3A /* RepositoryDetailViewModel.swift */; };
+		0C1DD6A622A0525E00EECCAD /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1DD6A522A0525E00EECCAD /* Repository.swift */; };
 		0C59B421229DC4B100C12241 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B420229DC4B100C12241 /* APIConstants.swift */; };
 		0C59B427229DCF0B00C12241 /* TMUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B426229DCF0B00C12241 /* TMUserDefaults.swift */; };
 		0C59B429229DCFD100C12241 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B428229DCFD100C12241 /* UserData.swift */; };
@@ -80,6 +81,7 @@
 		0C03722B229BA696003E4B3A /* RepositoryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailVC.swift; sourceTree = "<group>"; };
 		0C03722C229BA696003E4B3A /* RepositoryDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepositoryDetailVC.xib; sourceTree = "<group>"; };
 		0C03722F229BA6AB003E4B3A /* RepositoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailViewModel.swift; sourceTree = "<group>"; };
+		0C1DD6A522A0525E00EECCAD /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		0C59B420229DC4B100C12241 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		0C59B426229DCF0B00C12241 /* TMUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMUserDefaults.swift; sourceTree = "<group>"; };
 		0C59B428229DCFD100C12241 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 		0C03721C229BA612003E4B3A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0C1DD6A522A0525E00EECCAD /* Repository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				0C59B421229DC4B100C12241 /* APIConstants.swift in Sources */,
 				0CDBBC30229CBFEC00C16105 /* CommonHelper.swift in Sources */,
 				0C0371E4229B9F4D003E4B3A /* ViewController.swift in Sources */,
+				0C1DD6A622A0525E00EECCAD /* Repository.swift in Sources */,
 				0C037227229BA665003E4B3A /* MainVC.swift in Sources */,
 				0CE43741229C5ADF00CFED22 /* APIClient.swift in Sources */,
 				0C0371EA229B9F4D003E4B3A /* GitHubRepositories.xcdatamodeld in Sources */,

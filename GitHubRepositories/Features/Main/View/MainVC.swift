@@ -33,6 +33,7 @@ class MainVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         blindUI()
+        viewModel.searchRepositories("thieumao")
     }
 
     private func blindUI() {
