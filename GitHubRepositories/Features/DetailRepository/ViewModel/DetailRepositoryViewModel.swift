@@ -11,8 +11,8 @@ import RxSwift
 class DetailRepositoryViewModel {
     var fullname = Variable<String>("")
     var description = Variable<String>("")
-    var stars = Variable<String>("0")
-    var forks = Variable<String>("0")
+    var starCount = Variable<String>("0")
+    var forkCount = Variable<String>("0")
     var language = Variable<String>("")
     var isShowedDeleteButton = Variable(false)
 
@@ -38,8 +38,8 @@ class DetailRepositoryViewModel {
     private func bindingData() {
         fullname.value = repository.fullname ?? ""
         description.value = repository.description ?? ""
-        stars.value = String(repository.stars ?? 0)
-        forks.value = String(repository.forks ?? 0)
+        starCount.value = String(repository.starCount)
+        forkCount.value = String(repository.forkCount)
         language.value = repository.language ?? ""
     }
 

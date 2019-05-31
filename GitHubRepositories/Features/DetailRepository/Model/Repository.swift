@@ -12,9 +12,10 @@ class Repository: Mappable {
     var id: Int = 0
     var fullname: String?
     var description: String?
-    var stars: Int?
-    var forks: Int?
+    var starCount: Int = 0
+    var forkCount: Int = 0
     var language: String?
+    var updatedTime: String = ""
     var isTicked = false
 
     required init?(map: Map) {}
@@ -23,19 +24,21 @@ class Repository: Mappable {
         id <- map["id"]
         fullname <- map["full_name"]
         description <- map["description"]
-        stars <- map["stargazers_count"]
-        forks <- map["forks_count"]
+        starCount <- map["stargazers_count"]
+        language <- map["forks_count"]
         language <- map["language"]
+        updatedTime <- map["updated_at"]
     }
 
     func getDictionary() -> [String : Any] {
         let dictionary: [String : Any] = [
-            "id": id ?? "0",
+            "id": id,
             "full_name" : fullname ?? "",
             "description" : description ?? "",
-            "stargazers_count" : stars ?? "0",
-            "forks_count" : forks ?? "0",
-            "language" : language ?? ""
+            "stargazers_count" : starCount,
+            "forks_count" : forkCount,
+            "language" : language ?? "",
+            "updated_at" : updatedTime
         ]
         return dictionary
     }

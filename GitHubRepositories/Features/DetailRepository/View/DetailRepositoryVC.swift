@@ -40,8 +40,8 @@ class DetailRepositoryVC: UIViewController {
     private func blindUI() {
         viewModel?.fullname.asObservable().bind(to: fullnameLabel.rx.text).disposed(by: disposeBag)
         viewModel?.description.asObservable().bind(to: descriptionLabel.rx.text).disposed(by: disposeBag)
-        viewModel?.stars.asObservable().bind(to: startCountLabel.rx.text).disposed(by: disposeBag)
-        viewModel?.forks.asObservable().bind(to: forkCountLabel.rx.text).disposed(by: disposeBag)
+        viewModel?.starCount.asObservable().bind(to: startCountLabel.rx.text).disposed(by: disposeBag)
+        viewModel?.forkCount.asObservable().bind(to: forkCountLabel.rx.text).disposed(by: disposeBag)
         viewModel?.language.asObservable().bind(to: languageLabel.rx.text).disposed(by: disposeBag)
     }
 

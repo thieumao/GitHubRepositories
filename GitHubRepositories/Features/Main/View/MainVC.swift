@@ -143,9 +143,13 @@ class MainVC: UIViewController {
     }
 
     @objc public func mostPopularButtonTapped() {
+        closeKeyboard()
+        viewModel.sortByStarCount()
     }
 
     @objc public func mostRecentButtonTapped() {
+        closeKeyboard()
+        viewModel.sortByTimeUpdate()
     }
 }
 

@@ -65,6 +65,16 @@ class MainViewModel: NSObject {
         }
     }
 
+    func sortByStarCount() {
+        let currentRepos = searchResult.value
+        searchResult.value = currentRepos.sorted(by: { $0.starCount > $1.starCount })
+    }
+
+    func sortByTimeUpdate() {
+        let currentRepos = searchResult.value
+        searchResult.value = currentRepos.sorted(by: { $0.updatedTime > $1.updatedTime })
+    }
+
     // Mark: Search repositories
     func searchRepositories(_ text: String) {
         guard !text.isEmpty else {
