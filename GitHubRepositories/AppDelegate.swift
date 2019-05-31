@@ -20,8 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // set RootVC
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: LoginVC())
-
+        window?.rootViewController = UINavigationController(rootViewController: Router.getLoginVC())
         return true
     }
 

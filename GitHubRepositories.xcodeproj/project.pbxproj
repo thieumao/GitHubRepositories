@@ -32,6 +32,8 @@
 		0C85D87622A18114005D77E0 /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87422A18114005D77E0 /* NormalCell.swift */; };
 		0C85D87722A18114005D77E0 /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C85D87522A18114005D77E0 /* NormalCell.xib */; };
 		0C85D87922A18C01005D77E0 /* RepoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87822A18C01005D77E0 /* RepoData.swift */; };
+		0C85D87C22A1CA9C005D77E0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87B22A1CA9C005D77E0 /* Router.swift */; };
+		0C85D87E22A1CB32005D77E0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87D22A1CB32005D77E0 /* UIViewController+Extension.swift */; };
 		0CDBBC30229CBFEC00C16105 /* CommonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBBC2F229CBFEC00C16105 /* CommonHelper.swift */; };
 		0CDBBC32229CC16100C16105 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBBC31229CC16100C16105 /* Constants.swift */; };
 		0CDBBC34229CC5A100C16105 /* SearchUsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBBC33229CC5A100C16105 /* SearchUsersService.swift */; };
@@ -92,6 +94,8 @@
 		0C85D87422A18114005D77E0 /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
 		0C85D87522A18114005D77E0 /* NormalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
 		0C85D87822A18C01005D77E0 /* RepoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoData.swift; sourceTree = "<group>"; };
+		0C85D87B22A1CA9C005D77E0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		0C85D87D22A1CB32005D77E0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		0CDBBC2F229CBFEC00C16105 /* CommonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHelper.swift; sourceTree = "<group>"; };
 		0CDBBC31229CC16100C16105 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0CDBBC33229CC5A100C16105 /* SearchUsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersService.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 				0CE4373F229C5ABF00CFED22 /* Network */,
 				0C037233229BA6DE003E4B3A /* Constants */,
 				0C037232229BA6D1003E4B3A /* Extensions */,
+				0C85D87A22A1CA84005D77E0 /* Controllers */,
 				0C037212229BA5C0003E4B3A /* Features */,
 				0C0371E1229B9F4D003E4B3A /* AppDelegate.swift */,
 				0C0371EB229B9F50003E4B3A /* Assets.xcassets */,
@@ -282,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				0C59B42A229DD16200C12241 /* NSObject+Extension.swift */,
+				0C85D87D22A1CB32005D77E0 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -329,6 +335,14 @@
 				0C1DD6BD22A06D4200EECCAD /* DetailRepositoryVC.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0C85D87A22A1CA84005D77E0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0C85D87B22A1CA9C005D77E0 /* Router.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		0CDBBC2E229CBFD600C16105 /* Utilities */ = {
@@ -599,6 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C85D87E22A1CB32005D77E0 /* UIViewController+Extension.swift in Sources */,
 				0C03722A229BA679003E4B3A /* MainViewModel.swift in Sources */,
 				0CDBBC38229CC6CB00C16105 /* APIRouter.swift in Sources */,
 				0C59B427229DCF0B00C12241 /* TMUserDefaults.swift in Sources */,
@@ -615,6 +630,7 @@
 				0C1DD6C222A06D9B00EECCAD /* DetailRepositoryViewModel.swift in Sources */,
 				0C1DD6BE22A06D4200EECCAD /* Repository.swift in Sources */,
 				0C037221229BA639003E4B3A /* LoginVC.swift in Sources */,
+				0C85D87C22A1CA9C005D77E0 /* Router.swift in Sources */,
 				0C037224229BA652003E4B3A /* LoginViewModel.swift in Sources */,
 				0C0371E2229B9F4D003E4B3A /* AppDelegate.swift in Sources */,
 				0CDBBC36229CC5B300C16105 /* SearchRepositoriesService.swift in Sources */,

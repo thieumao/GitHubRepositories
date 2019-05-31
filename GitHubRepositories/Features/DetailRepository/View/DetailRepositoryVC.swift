@@ -12,19 +12,18 @@ import RxSwift
 
 class DetailRepositoryVC: UIViewController {
 
-    var viewModel: DetailRepositoryViewModel?
-
-    func injectViewModel(with detailRepositoryViewModel: DetailRepositoryViewModel) {
-        viewModel = detailRepositoryViewModel
-    }
-
     @IBOutlet weak var fullnameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var startCountLabel: UILabel!
     @IBOutlet weak var forkCountLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
 
-     let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
+    var viewModel: DetailRepositoryViewModel?
+
+    func injectViewModel(with detailRepositoryViewModel: DetailRepositoryViewModel) {
+        viewModel = detailRepositoryViewModel
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,12 +12,16 @@ import RxSwift
 
 class LoginVC: UIViewController {
 
-    let viewModel = LoginViewModel()
-    let disposeBag = DisposeBag()
-
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+
+    let disposeBag = DisposeBag()
+    var viewModel: LoginViewModel?
+
+    func injectViewModel(with loginViewModel: LoginViewModel) {
+        viewModel = loginViewModel
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +32,7 @@ class LoginVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         clearTextFields()
-        viewModel.bindingData()
+        viewModel?.bindingData()
         blindUI()
         if UserData.sharedInstance().isLogin {
             openMainScreen()
@@ -36,6 +40,8 @@ class LoginVC: UIViewController {
     }
 
     private func blindUI() {
+        guard let viewModel = viewModel else { return }
+
         usernameTextField.rx.text.orEmpty
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .asObservable()
@@ -51,7 +57,7 @@ class LoginVC: UIViewController {
 
     // MARK: Action Methods
     @IBAction func loginButtonAction(_ sender: Any) {
-        viewModel.saveUserInfo()
+        viewModel?.saveUserInfo()
         closeKeyboard()
         openMainScreen()
     }
@@ -71,9 +77,7 @@ class LoginVC: UIViewController {
     }
 
     private func openMainScreen() {
-        // open Main Screen
-        let mainVC = MainVC()
-        let naviController = UINavigationController(rootViewController: mainVC)
+        let naviController = UINavigationController(rootViewController: Router.getMainVC())
         present(naviController, animated: true, completion: nil)
     }
 }

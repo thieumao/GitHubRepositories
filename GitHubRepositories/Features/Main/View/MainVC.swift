@@ -17,14 +17,18 @@ enum MainState {
 
 class MainVC: UIViewController {
 
-    let viewModel = MainViewModel()
-    let disposeBag = DisposeBag()
-    var state: MainState = .normal
-
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var searchingTableView: UITableView!
     @IBOutlet weak var normalTableView: UITableView!
+
+    var state: MainState = .normal
+    let disposeBag = DisposeBag()
+    var viewModel: MainViewModel?
+
+    func injectViewModel(with mainViewModel: MainViewModel) {
+        viewModel = mainViewModel
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,13 +44,15 @@ class MainVC: UIViewController {
         super.viewWillAppear(animated)
         switch state {
         case .normal:
-            viewModel.showFavoristList()
+            viewModel?.showFavoristList()
         case .searching:
-            viewModel.showSearchingList()
+            viewModel?.showSearchingList()
         }
     }
 
     private func blindUI() {
+        guard let viewModel = viewModel else { return }
+
         viewModel.isSearching.asObservable().subscribe(onNext: { [weak self] isSearching in
             guard let self = self else { return }
             self.state = isSearching ? .searching : .normal
@@ -56,7 +62,7 @@ class MainVC: UIViewController {
         cancelButton.rx.tap.do(onNext: { [weak self] in
             self?.closeKeyboard()
         }).subscribe(onNext: { [weak self] in
-            self?.viewModel.showFavoristList()
+            self?.viewModel?.showFavoristList()
         }).disposed(by: disposeBag)
 
         searchTextField.rx.text.orEmpty
@@ -72,9 +78,9 @@ class MainVC: UIViewController {
             guard let self = self else { return }
             cell.didTapTick = {
                 if repo.isTicked {
-                    self.viewModel.removeFromFavoriteList(index)
+                    self.viewModel?.removeFromFavoriteList(index)
                 } else {
-                    self.viewModel.addToFavoriteList(index)
+                    self.viewModel?.addToFavoriteList(index)
                 }
                 cell.repository = repo
             }
@@ -105,10 +111,7 @@ class MainVC: UIViewController {
     }
 
     private func openDetailRepositoryVC(_ repo: Repository) {
-        let detailRepositoryVC = DetailRepositoryVC()
-        let viewModel = DetailRepositoryViewModel(repository: repo)
-        detailRepositoryVC.injectViewModel(with: viewModel)
-        navigationController?.pushViewController(detailRepositoryVC, animated: true)
+        pushViewControllerAnimated(Router.getDetailRepository(repository: repo), animated: true)
     }
 
     private func closeKeyboard() {
@@ -142,29 +145,29 @@ class MainVC: UIViewController {
     }
 
     @objc public func logoutButtonTapped() {
-        viewModel.removeUserInfo()
+        viewModel?.removeUserInfo()
         dismiss(animated: true, completion: nil)
     }
 
     @objc public func mostPopularButtonTapped() {
         closeKeyboard()
-        viewModel.sortByStarCount()
+        viewModel?.sortByStarCount()
     }
 
     @objc public func mostRecentButtonTapped() {
         closeKeyboard()
-        viewModel.sortByTimeUpdate()
+        viewModel?.sortByTimeUpdate()
     }
 }
 
 extension MainVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        viewModel.showSearchingList()
+        viewModel?.showSearchingList()
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let keyword = textField.text, state == .searching {
-            viewModel.searchRepositories(keyword)
+            viewModel?.searchRepositories(keyword)
         }
         return true
     }
