@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GitHubRepositories/Network/SearchRepositoriesService.swift"
-            timestampString = "580940683.99807"
+            timestampString = "581009460.90562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "searchRepositories(keyword:success:failure:)"
             landmarkType = "7">
          </BreakpointContent>

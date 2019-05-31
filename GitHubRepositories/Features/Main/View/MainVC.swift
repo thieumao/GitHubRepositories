@@ -29,6 +29,7 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self
+        normalTableView.register(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "NormalCell")
         searchingTableView.register(UINib(nibName: "SearchingCell", bundle: nil), forCellReuseIdentifier: "SearchingCell")
         blindUI()
     }
@@ -54,9 +55,21 @@ class MainVC: UIViewController {
             .distinctUntilChanged()
             .asObservable().bind(to: viewModel.searchInput).disposed(by: disposeBag)
 
+        viewModel.normalResult.asObservable().bind(to: normalTableView.rx.items(cellIdentifier: "NormalCell", cellType: NormalCell.self)){ (index, repo, cell) in
+            cell.repository = repo
+        }.disposed(by: disposeBag)
+
         viewModel.searchResult.asObservable().bind(to: searchingTableView.rx.items(cellIdentifier: "SearchingCell", cellType: SearchingCell.self)){ (index, repo, cell) in
             cell.repository = repo
         }.disposed(by: disposeBag)
+
+        normalTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                if let cell = self?.normalTableView.cellForRow(at: indexPath) as? NormalCell,
+                    let repo = cell.repository {
+                    self?.openDetailRepositoryVC(repo)
+                }
+            }).disposed(by: disposeBag)
 
         searchingTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in

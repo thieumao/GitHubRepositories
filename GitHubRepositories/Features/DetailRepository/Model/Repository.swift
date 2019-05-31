@@ -24,4 +24,5 @@ class Repository: Mappable {
         forks <- map["forks_count"]
         language <- map["language"]
     }
+
 }

@@ -30,6 +30,7 @@ class SearchRepositoriesService: SearchRepositoriesFetch {
                     repos.append(repo)
                 }
             }
+            UserData.sharedInstance().favoriteRepositories = repos
             success(repos)
         }, didFinishWithError: { _, _ in
             failure()

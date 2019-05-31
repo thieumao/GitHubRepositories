@@ -44,5 +44,7 @@ class DetailRepositoryVC: UIViewController {
     }
 
     @objc public func deleteButtonTapped() {
+        let count = UserData.sharedInstance().favoriteRepositories.count
+        print("count = \(count)")
     }
 }

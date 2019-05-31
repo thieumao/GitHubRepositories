@@ -31,6 +31,9 @@
 		0C59B427229DCF0B00C12241 /* TMUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B426229DCF0B00C12241 /* TMUserDefaults.swift */; };
 		0C59B429229DCFD100C12241 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B428229DCFD100C12241 /* UserData.swift */; };
 		0C59B42B229DD16200C12241 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B42A229DD16200C12241 /* NSObject+Extension.swift */; };
+		0C85D87322A17626005D77E0 /* FavoriteRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87222A17626005D77E0 /* FavoriteRepositories.swift */; };
+		0C85D87622A18114005D77E0 /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87422A18114005D77E0 /* NormalCell.swift */; };
+		0C85D87722A18114005D77E0 /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C85D87522A18114005D77E0 /* NormalCell.xib */; };
 		0CDBBC30229CBFEC00C16105 /* CommonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBBC2F229CBFEC00C16105 /* CommonHelper.swift */; };
 		0CDBBC32229CC16100C16105 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBBC31229CC16100C16105 /* Constants.swift */; };
 		0CDBBC34229CC5A100C16105 /* SearchUsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBBC33229CC5A100C16105 /* SearchUsersService.swift */; };
@@ -90,6 +93,9 @@
 		0C59B426229DCF0B00C12241 /* TMUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMUserDefaults.swift; sourceTree = "<group>"; };
 		0C59B428229DCFD100C12241 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		0C59B42A229DD16200C12241 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		0C85D87222A17626005D77E0 /* FavoriteRepositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepositories.swift; sourceTree = "<group>"; };
+		0C85D87422A18114005D77E0 /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
+		0C85D87522A18114005D77E0 /* NormalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
 		0CDBBC2F229CBFEC00C16105 /* CommonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHelper.swift; sourceTree = "<group>"; };
 		0CDBBC31229CC16100C16105 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0CDBBC33229CC5A100C16105 /* SearchUsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersService.swift; sourceTree = "<group>"; };
@@ -252,6 +258,7 @@
 		0C037219229BA602003E4B3A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0C85D87222A17626005D77E0 /* FavoriteRepositories.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -263,6 +270,8 @@
 				0C037226229BA665003E4B3A /* MainVC.xib */,
 				0C1DD6A722A05CF000EECCAD /* SearchingCell.swift */,
 				0C1DD6A822A05CF000EECCAD /* SearchingCell.xib */,
+				0C85D87422A18114005D77E0 /* NormalCell.swift */,
+				0C85D87522A18114005D77E0 /* NormalCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -479,6 +488,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C85D87722A18114005D77E0 /* NormalCell.xib in Resources */,
 				0C037228229BA665003E4B3A /* MainVC.xib in Resources */,
 				0C0371EF229B9F50003E4B3A /* LaunchScreen.storyboard in Resources */,
 				0C0371EC229B9F50003E4B3A /* Assets.xcassets in Resources */,
@@ -599,9 +609,11 @@
 				0C03722A229BA679003E4B3A /* MainViewModel.swift in Sources */,
 				0CDBBC38229CC6CB00C16105 /* APIRouter.swift in Sources */,
 				0C59B427229DCF0B00C12241 /* TMUserDefaults.swift in Sources */,
+				0C85D87322A17626005D77E0 /* FavoriteRepositories.swift in Sources */,
 				0C59B429229DCFD100C12241 /* UserData.swift in Sources */,
 				0C59B421229DC4B100C12241 /* APIConstants.swift in Sources */,
 				0CDBBC30229CBFEC00C16105 /* CommonHelper.swift in Sources */,
+				0C85D87622A18114005D77E0 /* NormalCell.swift in Sources */,
 				0C1DD6A922A05CF000EECCAD /* SearchingCell.swift in Sources */,
 				0C0371E4229B9F4D003E4B3A /* ViewController.swift in Sources */,
 				0C037227229BA665003E4B3A /* MainVC.swift in Sources */,

@@ -13,6 +13,7 @@ class MainViewModel: NSObject {
     var isSearching = Variable(false)
     var searchInput = Variable<String>("")
     var searchResult = Variable<[Repository]>([])
+    var normalResult = Variable<[Repository]>([])
 
     override init() {
         super.init()
@@ -23,6 +24,7 @@ class MainViewModel: NSObject {
         searchInput.asObservable().subscribe(onNext: { text in
             self.searchRepositories(text)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
+        normalResult.value = UserData.sharedInstance().favoriteRepositories
     }
 
     // Mark: Search repositories
@@ -33,6 +35,7 @@ class MainViewModel: NSObject {
         }
         SearchRepositoriesService().searchRepositories(keyword: text, success: { repos in
             self.searchResult.value = repos
+            
         }, failure: {
             self.searchResult.value = []
         })
