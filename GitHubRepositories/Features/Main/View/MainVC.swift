@@ -47,15 +47,16 @@ class MainVC: UIViewController {
     }
 
     private func blindUI() {
-        viewModel.isSearching.asObservable().subscribe(onNext: { (isSearching) in
+        viewModel.isSearching.asObservable().subscribe(onNext: { [weak self] isSearching in
+            guard let self = self else { return }
             self.state = isSearching ? .searching : .normal
             self.updateUI()
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
 
-        cancelButton.rx.tap.do(onNext:  {
-            self.closeKeyboard()
-        }).subscribe(onNext: {
-            self.viewModel.showFavoristList()
+        cancelButton.rx.tap.do(onNext: { [weak self] in
+            self?.closeKeyboard()
+        }).subscribe(onNext: { [weak self] in
+            self?.viewModel.showFavoristList()
         }).disposed(by: disposeBag)
 
         searchTextField.rx.text.orEmpty
@@ -67,7 +68,8 @@ class MainVC: UIViewController {
             cell.repository = repo
         }.disposed(by: disposeBag)
 
-        viewModel.searchResult.asObservable().bind(to: searchingTableView.rx.items(cellIdentifier: "SearchingCell", cellType: SearchingCell.self)){ (index, repo, cell) in
+        viewModel.searchResult.asObservable().bind(to: searchingTableView.rx.items(cellIdentifier: "SearchingCell", cellType: SearchingCell.self)){ [weak self] (index, repo, cell) in
+            guard let self = self else { return }
             cell.didTapTick = {
                 if repo.isTicked {
                     self.viewModel.removeFromFavoriteList(index)
@@ -81,21 +83,23 @@ class MainVC: UIViewController {
 
         normalTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                self?.normalTableView.deselectRow(at: indexPath, animated: true)
-                if let cell = self?.normalTableView.cellForRow(at: indexPath) as? NormalCell,
+                guard let self = self else { return }
+                self.normalTableView.deselectRow(at: indexPath, animated: true)
+                if let cell = self.normalTableView.cellForRow(at: indexPath) as? NormalCell,
                     let repo = cell.repository {
-                    self?.closeKeyboard()
-                    self?.openDetailRepositoryVC(repo)
+                    self.closeKeyboard()
+                    self.openDetailRepositoryVC(repo)
                 }
             }).disposed(by: disposeBag)
 
         searchingTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                self?.searchingTableView.deselectRow(at: indexPath, animated: true)
-                if let cell = self?.searchingTableView.cellForRow(at: indexPath) as? SearchingCell,
+                guard let self = self else { return }
+                self.searchingTableView.deselectRow(at: indexPath, animated: true)
+                if let cell = self.searchingTableView.cellForRow(at: indexPath) as? SearchingCell,
                     let repo = cell.repository {
-                    self?.closeKeyboard()
-                    self?.openDetailRepositoryVC(repo)
+                    self.closeKeyboard()
+                    self.openDetailRepositoryVC(repo)
                 }
             }).disposed(by: disposeBag)
     }

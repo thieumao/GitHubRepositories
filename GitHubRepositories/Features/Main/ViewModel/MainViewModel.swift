@@ -22,8 +22,8 @@ class MainViewModel: NSObject {
     }
 
     func bindingData() {
-        searchInput.asObservable().subscribe(onNext: { text in
-            self.searchRepositories(text)
+        searchInput.asObservable().subscribe(onNext: { [weak self] text in
+            self?.searchRepositories(text)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
     }
 
@@ -81,10 +81,10 @@ class MainViewModel: NSObject {
             searchResult.value = []
             return
         }
-        SearchRepositoriesService().searchRepositories(keyword: text, success: { repos in
-            self.updateSearchResult(repos)
-        }, failure: {
-            self.searchResult.value = []
+        SearchRepositoriesService().searchRepositories(keyword: text, success: { [weak self] repos in
+            self?.updateSearchResult(repos)
+        }, failure: { [weak self] in
+            self?.searchResult.value = []
         })
     }
 

@@ -19,19 +19,22 @@ class LoginViewModel: NSObject {
     let disposeBag = DisposeBag()
 
     func bindingData() {
-        password.asObservable().subscribe(onNext: { (text) in
+        password.asObservable().subscribe(onNext: { [weak self] text in
+            guard let self = self else { return }
             self.isValidPassword.value = self.validatePassword(text)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
 
-        username.asObservable().subscribe(onNext: { (text) in
-            self.validateUsername(text)
+        username.asObservable().subscribe(onNext: { [weak self] text in
+            self?.validateUsername(text)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
 
-        isValidPassword.asObservable().subscribe(onNext: { (value) in
+        isValidPassword.asObservable().subscribe(onNext: { [weak self] value in
+            guard let self = self else { return }
             self.validateUsername(self.username.value)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
 
-        isValidUsername.asObservable().subscribe(onNext: { (value) in
+        isValidUsername.asObservable().subscribe(onNext: { [weak self] value in
+            guard let self = self else { return }
             self.isValid.value = value && self.isValidPassword.value
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
     }
@@ -46,11 +49,12 @@ class LoginViewModel: NSObject {
             isValidUsername.value = true
             return
         }
-        SearchUsersService().searchUsers(keyword: text, success: { usernames in
+        SearchUsersService().searchUsers(keyword: text, success: { [weak self] usernames in
+            guard let self = self else { return }
             self.cacheValidUsernames(usernames)
             self.isValidUsername.value = true
-        }, failure: {
-            self.isValidUsername.value = false
+        }, failure: { [weak self] in
+            self?.isValidUsername.value = false
         })
     }
 
