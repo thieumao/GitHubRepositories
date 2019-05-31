@@ -31,6 +31,8 @@ class MainVC: UIViewController {
         searchTextField.delegate = self
         normalTableView.register(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "NormalCell")
         searchingTableView.register(UINib(nibName: "SearchingCell", bundle: nil), forCellReuseIdentifier: "SearchingCell")
+        normalTableView.keyboardDismissMode = .onDrag
+        searchingTableView.keyboardDismissMode = .onDrag
         blindUI()
     }
 
@@ -45,13 +47,13 @@ class MainVC: UIViewController {
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
 
         cancelButton.rx.tap.do(onNext:  {
-            self.searchTextField.resignFirstResponder()
+            self.closeKeyboard()
         }).subscribe(onNext: {
-            self.viewModel.isSearching.value = false
+            self.viewModel.showFavoristList()
         }).disposed(by: disposeBag)
 
         searchTextField.rx.text.orEmpty
-            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .throttle(2, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .asObservable().bind(to: viewModel.searchInput).disposed(by: disposeBag)
 
@@ -60,6 +62,14 @@ class MainVC: UIViewController {
         }.disposed(by: disposeBag)
 
         viewModel.searchResult.asObservable().bind(to: searchingTableView.rx.items(cellIdentifier: "SearchingCell", cellType: SearchingCell.self)){ (index, repo, cell) in
+            cell.didTapTick = {
+                if repo.isTicked {
+                    self.viewModel.removeToFavoriteList(index)
+                } else {
+                    self.viewModel.addToFavoriteList(index)
+                }
+                cell.repository = repo
+            }
             cell.repository = repo
         }.disposed(by: disposeBag)
 
@@ -67,16 +77,14 @@ class MainVC: UIViewController {
             .subscribe(onNext: { [weak self] indexPath in
                 if let cell = self?.normalTableView.cellForRow(at: indexPath) as? NormalCell,
                     let repo = cell.repository {
+                    self?.closeKeyboard()
                     self?.openDetailRepositoryVC(repo)
                 }
             }).disposed(by: disposeBag)
 
         searchingTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                if let cell = self?.searchingTableView.cellForRow(at: indexPath) as? SearchingCell,
-                    let repo = cell.repository {
-                    self?.openDetailRepositoryVC(repo)
-                }
+                self?.closeKeyboard()
             }).disposed(by: disposeBag)
     }
 
@@ -85,6 +93,10 @@ class MainVC: UIViewController {
         let viewModel = DetailRepositoryViewModel(repository: repo)
         detailRepositoryVC.injectViewModel(with: viewModel)
         navigationController?.pushViewController(detailRepositoryVC, animated: true)
+    }
+
+    private func closeKeyboard() {
+        view.endEditing(true)
     }
 
     private func updateUI() {
@@ -127,8 +139,7 @@ class MainVC: UIViewController {
 
 extension MainVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // show keyboard
-        viewModel.isSearching.value = true
+        viewModel.showSearchingList()
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

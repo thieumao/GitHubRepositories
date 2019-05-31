@@ -19,22 +19,40 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1z9-EV-zL9">
-                        <rect key="frame" x="16" y="22" width="0.0" height="0.0"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thieu Mao" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1z9-EV-zL9">
+                        <rect key="frame" x="16" y="11.5" width="259" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bk-bm-bxn">
+                        <rect key="frame" x="279" y="9.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="ZZx-vt-2BO"/>
+                            <constraint firstAttribute="height" constant="25" id="v35-18-qql"/>
+                        </constraints>
+                        <state key="normal" image="untick"/>
+                        <connections>
+                            <action selector="tickButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0vS-da-bYi"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="1z9-EV-zL9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="8BW-1z-cZa"/>
+                    <constraint firstItem="9bk-bm-bxn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="a09-PW-Geu"/>
+                    <constraint firstItem="9bk-bm-bxn" firstAttribute="leading" secondItem="1z9-EV-zL9" secondAttribute="trailing" constant="4" id="dQ2-Lo-fax"/>
                     <constraint firstItem="1z9-EV-zL9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qDq-zr-oxp"/>
+                    <constraint firstAttribute="trailing" secondItem="9bk-bm-bxn" secondAttribute="trailing" constant="16" id="r0H-4n-Tcx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="repoNameLabel" destination="1z9-EV-zL9" id="fDh-71-pSe"/>
+                <outlet property="tickButton" destination="9bk-bm-bxn" id="K4X-KZ-uBG"/>
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="untick" width="25" height="25"/>
+    </resources>
 </document>

@@ -21,7 +21,6 @@ class UserData: TMUserDefaults {
         static let USERNAME = "username"
         static let PASSWORD = "password"
         static let VALID_USERNAMES = "validUsernames"
-        static let FAVORITE_REPOSITORIES = "favoriteRepositories"
     }
 
     var isLogin: Bool {
@@ -57,33 +56,6 @@ class UserData: TMUserDefaults {
         }
         set {
             set(newValue, forKey: ClassConstant.VALID_USERNAMES)
-        }
-    }
-
-    var favoriteRepositories: [Repository] {
-        get {
-            let list = getObject(ClassConstant.FAVORITE_REPOSITORIES) as? [[String : Any]] ?? []
-            var repos: [Repository] = []
-            for item in list {
-                if let repo = Repository(JSON: item) {
-                    repos.append(repo)
-                }
-            }
-            return repos
-        }
-        set {
-            var list: [[String: Any]] = []
-            for repo in newValue {
-                let dictionary: [String : Any] = [
-                    "full_name" : repo.fullname ?? "",
-                    "description" : repo.description ?? "",
-                    "stargazers_count" : repo.stars ?? "0",
-                    "forks_count" : repo.forks ?? "0",
-                    "language" : repo.language ?? ""
-                ]
-                list.append(dictionary)
-            }
-            set(list, forKey: ClassConstant.FAVORITE_REPOSITORIES)
         }
     }
 }

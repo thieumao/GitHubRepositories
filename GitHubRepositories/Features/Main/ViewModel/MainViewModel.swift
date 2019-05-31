@@ -18,13 +18,50 @@ class MainViewModel: NSObject {
     override init() {
         super.init()
         bindingData()
+        showFavoristList()
     }
 
     func bindingData() {
         searchInput.asObservable().subscribe(onNext: { text in
             self.searchRepositories(text)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
-        normalResult.value = UserData.sharedInstance().favoriteRepositories
+    }
+
+    func showFavoristList() {
+        isSearching.value = false
+        normalResult.value = RepoData.sharedInstance().favoriteRepositories
+    }
+
+    func showSearchingList() {
+        isSearching.value = true
+    }
+
+    func addToFavoriteList(_ index: Int) {
+        guard index >= 0, index < searchResult.value.count else { return }
+        let isTicked = searchResult.value[index].isTicked
+        searchResult.value[index].isTicked = !isTicked
+        var favoriteList = RepoData.sharedInstance().favoriteRepositories
+        let isExist = favoriteList.contains { (repo) -> Bool in
+            repo.id == searchResult.value[index].id
+        }
+        if !isExist {
+            favoriteList.append(searchResult.value[index])
+            RepoData.sharedInstance().favoriteRepositories = favoriteList
+        }
+    }
+
+    func removeToFavoriteList(_ index: Int) {
+        guard index >= 0, index < searchResult.value.count else { return }
+        let isTicked = searchResult.value[index].isTicked
+        searchResult.value[index].isTicked = !isTicked
+        var favoriteList = RepoData.sharedInstance().favoriteRepositories
+        let firstIndex = favoriteList.firstIndex { (repo) -> Bool in
+            repo.id == searchResult.value[index].id
+        }
+        if let removeIndex = firstIndex {
+            favoriteList.remove(at: removeIndex)
+            RepoData.sharedInstance().favoriteRepositories = favoriteList
+        }
     }
 
     // Mark: Search repositories
@@ -34,8 +71,18 @@ class MainViewModel: NSObject {
             return
         }
         SearchRepositoriesService().searchRepositories(keyword: text, success: { repos in
-            self.searchResult.value = repos
-            
+            var newRepos: [Repository] = []
+            let favoriteList = RepoData.sharedInstance().favoriteRepositories
+            for eachRepo in repos {
+                for eachFavorite in favoriteList {
+                    if eachRepo.id == eachFavorite.id {
+                        eachRepo.isTicked = true
+                        break
+                    }
+                }
+                newRepos.append(eachRepo)
+            }
+            self.searchResult.value = newRepos
         }, failure: {
             self.searchResult.value = []
         })
