@@ -7,13 +7,14 @@
 //
 
 import RxSwift
+import RxCocoa
 
 class MainViewModel: NSObject {
     let disposeBag = DisposeBag()
-    var isSearching = Variable(false)
-    var searchInput = Variable<String>("")
-    var searchResult = Variable<[Repository]>([])
-    var normalResult = Variable<[Repository]>([])
+    var isSearching = BehaviorRelay<Bool>(value: false)
+    var searchInput = BehaviorRelay<String>(value: "")
+    var searchResult = BehaviorRelay<[Repository]>(value: [])
+    var normalResult = BehaviorRelay<[Repository]>(value: [])
 
     override init() {
         super.init()
@@ -28,12 +29,13 @@ class MainViewModel: NSObject {
     }
 
     func showFavoristList() {
-        isSearching.value = false
-        normalResult.value = RepoData.sharedInstance().favoriteRepositories
+        isSearching.accept(false)
+        let favoriteList = RepoData.sharedInstance().favoriteRepositories
+        normalResult.accept(favoriteList)
     }
 
     func showSearchingList() {
-        isSearching.value = true
+        isSearching.accept(true)
         updateSearchResult(searchResult.value)
     }
 
@@ -67,24 +69,26 @@ class MainViewModel: NSObject {
 
     func sortByStarCount() {
         let currentRepos = searchResult.value
-        searchResult.value = currentRepos.sorted(by: { $0.starCount > $1.starCount })
+        let newRepos = currentRepos.sorted(by: { $0.starCount > $1.starCount })
+        searchResult.accept(newRepos)
     }
 
     func sortByTimeUpdate() {
         let currentRepos = searchResult.value
-        searchResult.value = currentRepos.sorted(by: { $0.updatedTime > $1.updatedTime })
+        let newRepos = currentRepos.sorted(by: { $0.updatedTime > $1.updatedTime })
+        searchResult.accept(newRepos)
     }
 
     // Mark: Search repositories
     func searchRepositories(_ text: String) {
         guard !text.isEmpty else {
-            searchResult.value = []
+            searchResult.accept([])
             return
         }
         SearchRepositoriesService().searchRepositories(keyword: text, success: { [weak self] repos in
             self?.updateSearchResult(repos)
         }, failure: { [weak self] in
-            self?.searchResult.value = []
+            self?.searchResult.accept([])
         })
     }
 
@@ -98,7 +102,7 @@ class MainViewModel: NSObject {
             eachRepo.isTicked = isContained
             newRepos.append(eachRepo)
         }
-        self.searchResult.value = newRepos
+        searchResult.accept(newRepos)
     }
 
     // Mark: Others

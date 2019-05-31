@@ -16,7 +16,6 @@ enum MainState {
 }
 
 class MainVC: UIViewController {
-
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var searchingTableView: UITableView!

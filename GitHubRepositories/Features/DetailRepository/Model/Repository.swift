@@ -10,11 +10,11 @@ import ObjectMapper
 
 class Repository: Mappable {
     var id: Int = 0
-    var fullname: String?
-    var description: String?
+    var fullname: String = ""
+    var description: String = ""
     var starCount: Int = 0
     var forkCount: Int = 0
-    var language: String?
+    var language: String = ""
     var updatedTime: String = ""
     var isTicked = false
 
@@ -33,11 +33,11 @@ class Repository: Mappable {
     func getDictionary() -> [String : Any] {
         let dictionary: [String : Any] = [
             "id": id,
-            "full_name" : fullname ?? "",
-            "description" : description ?? "",
+            "full_name" : fullname,
+            "description" : description,
             "stargazers_count" : starCount,
             "forks_count" : forkCount,
-            "language" : language ?? "",
+            "language" : language,
             "updated_at" : updatedTime
         ]
         return dictionary

@@ -6,22 +6,21 @@
 //  Copyright © 2019 Mao. All rights reserved.
 //
 
-import Foundation
 import RxSwift
+import RxCocoa
 
 class LoginViewModel: NSObject {
-
-    var username = Variable("")
-    var password = Variable("")
-    var isValidUsername = Variable(false)
-    var isValidPassword = Variable(false)
-    var isValid = Variable(false)
+    var username = BehaviorRelay<String>(value: "")
+    var password = BehaviorRelay<String>(value: "")
+    var isValidUsername = BehaviorRelay<Bool>(value: false)
+    var isValidPassword = BehaviorRelay<Bool>(value: false)
+    var isValid = BehaviorRelay<Bool>(value: false)
     let disposeBag = DisposeBag()
 
     func bindingData() {
         password.asObservable().subscribe(onNext: { [weak self] text in
             guard let self = self else { return }
-            self.isValidPassword.value = self.validatePassword(text)
+            self.isValidPassword.accept(self.validatePassword(text))
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
 
         username.asObservable().subscribe(onNext: { [weak self] text in
@@ -35,26 +34,26 @@ class LoginViewModel: NSObject {
 
         isValidUsername.asObservable().subscribe(onNext: { [weak self] value in
             guard let self = self else { return }
-            self.isValid.value = value && self.isValidPassword.value
+            self.isValid.accept(value && self.isValidPassword.value)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
     }
 
     // Mark: Validate Username
     private func validateUsername(_ text: String) {
         if text.isEmpty {
-            isValidUsername.value = false
+            isValidUsername.accept(false)
             return
         }
         if checkValidUsernameInCache(text) {
-            isValidUsername.value = true
+            isValidUsername.accept(true)
             return
         }
         SearchUsersService().searchUsers(keyword: text, success: { [weak self] usernames in
             guard let self = self else { return }
             self.cacheValidUsernames(usernames)
-            self.isValidUsername.value = true
+            self.isValidUsername.accept(true)
         }, failure: { [weak self] in
-            self?.isValidUsername.value = false
+            self?.isValidUsername.accept(false)
         })
     }
 

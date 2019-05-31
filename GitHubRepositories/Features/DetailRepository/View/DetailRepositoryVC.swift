@@ -11,7 +11,6 @@ import RxCocoa
 import RxSwift
 
 class DetailRepositoryVC: UIViewController {
-
     @IBOutlet weak var fullnameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var startCountLabel: UILabel!

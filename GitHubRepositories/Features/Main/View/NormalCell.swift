@@ -9,7 +9,6 @@
 import UIKit
 
 class NormalCell: UITableViewCell {
-
     @IBOutlet weak var repoNameLabel: UILabel!
 
     var repository: Repository? {
@@ -17,16 +16,4 @@ class NormalCell: UITableViewCell {
             repoNameLabel.text = repository?.fullname
         }
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }

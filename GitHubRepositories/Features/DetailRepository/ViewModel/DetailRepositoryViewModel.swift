@@ -7,14 +7,15 @@
 //
 
 import RxSwift
+import RxCocoa
 
 class DetailRepositoryViewModel {
-    var fullname = Variable<String>("")
-    var description = Variable<String>("")
-    var starCount = Variable<String>("0")
-    var forkCount = Variable<String>("0")
-    var language = Variable<String>("")
-    var isShowedDeleteButton = Variable(false)
+    var fullname = BehaviorRelay<String>(value: "")
+    var description = BehaviorRelay<String>(value: "")
+    var starCount = BehaviorRelay<String>(value: "0")
+    var forkCount = BehaviorRelay<String>(value: "0")
+    var language = BehaviorRelay<String>(value: "")
+    var isShowedDeleteButton = BehaviorRelay<Bool>(value: false)
 
     var repository: Repository
 
@@ -36,11 +37,11 @@ class DetailRepositoryViewModel {
     }
 
     private func bindingData() {
-        fullname.value = repository.fullname ?? ""
-        description.value = repository.description ?? ""
-        starCount.value = String(repository.starCount)
-        forkCount.value = String(repository.forkCount)
-        language.value = repository.language ?? ""
+        fullname.accept(repository.fullname)
+        description.accept(repository.description)
+        starCount.accept(String(repository.starCount))
+        forkCount.accept(String(repository.forkCount))
+        language.accept(repository.language)
     }
 
     private func handleShowDeleteButton() {
@@ -48,6 +49,6 @@ class DetailRepositoryViewModel {
         let isContained = favoriteList.contains { (repo) -> Bool in
             repo.id == repository.id
         }
-        isShowedDeleteButton.value = isContained
+        isShowedDeleteButton.accept(isContained)
     }
 }
