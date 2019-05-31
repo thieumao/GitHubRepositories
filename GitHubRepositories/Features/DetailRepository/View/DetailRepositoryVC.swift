@@ -29,9 +29,11 @@ class DetailRepositoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = Constants.Titles.REPOSITORY_DETAIL
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.Buttons.DELETE,
-                                                            style: .done, target: self,
-                                                            action: #selector(deleteButtonTapped))
+        let deleteButton = UIBarButtonItem(title: Constants.Buttons.DELETE,
+                                           style: .done, target: self,
+                                           action: #selector(deleteButtonTapped))
+        let isShowedDeleteButton = viewModel?.isShowedDeleteButton.value ?? false
+        navigationItem.rightBarButtonItem = isShowedDeleteButton ? deleteButton : nil
         blindUI()
     }
 
@@ -44,7 +46,7 @@ class DetailRepositoryVC: UIViewController {
     }
 
     @objc public func deleteButtonTapped() {
-        let count = RepoData.sharedInstance().favoriteRepositories.count
-        print("count = \(count)")
+        navigationItem.rightBarButtonItem = nil
+        viewModel?.removeFromFavoriteList()
     }
 }

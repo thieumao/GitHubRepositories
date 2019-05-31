@@ -34,6 +34,7 @@ class MainViewModel: NSObject {
 
     func showSearchingList() {
         isSearching.value = true
+        updateSearchResult(searchResult.value)
     }
 
     func addToFavoriteList(_ index: Int) {
@@ -50,7 +51,7 @@ class MainViewModel: NSObject {
         }
     }
 
-    func removeToFavoriteList(_ index: Int) {
+    func removeFromFavoriteList(_ index: Int) {
         guard index >= 0, index < searchResult.value.count else { return }
         let isTicked = searchResult.value[index].isTicked
         searchResult.value[index].isTicked = !isTicked
@@ -71,21 +72,23 @@ class MainViewModel: NSObject {
             return
         }
         SearchRepositoriesService().searchRepositories(keyword: text, success: { repos in
-            var newRepos: [Repository] = []
-            let favoriteList = RepoData.sharedInstance().favoriteRepositories
-            for eachRepo in repos {
-                for eachFavorite in favoriteList {
-                    if eachRepo.id == eachFavorite.id {
-                        eachRepo.isTicked = true
-                        break
-                    }
-                }
-                newRepos.append(eachRepo)
-            }
-            self.searchResult.value = newRepos
+            self.updateSearchResult(repos)
         }, failure: {
             self.searchResult.value = []
         })
+    }
+
+    private func updateSearchResult(_ repos: [Repository]) {
+        var newRepos: [Repository] = []
+        let favoriteList = RepoData.sharedInstance().favoriteRepositories
+        for eachRepo in repos {
+            let isContained = favoriteList.contains { (eachFavoriteList) -> Bool in
+                eachFavoriteList.id == eachRepo.id
+            }
+            eachRepo.isTicked = isContained
+            newRepos.append(eachRepo)
+        }
+        self.searchResult.value = newRepos
     }
 
     // Mark: Others

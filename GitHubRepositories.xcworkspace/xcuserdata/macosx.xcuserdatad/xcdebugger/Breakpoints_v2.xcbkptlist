@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GitHubRepositories/Features/Main/ViewModel/MainViewModel.swift"
-            timestampString = "581020352.425253"
+            timestampString = "581024955.02659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
             endingLineNumber = "63"
-            landmarkName = "removeToFavoriteList(_:)"
+            landmarkName = "removeFromFavoriteList(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GitHubRepositories/Features/Main/ViewModel/MainViewModel.swift"
-            timestampString = "581020352.4260761"
+            timestampString = "581024955.02748"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
             endingLineNumber = "64"
-            landmarkName = "removeToFavoriteList(_:)"
+            landmarkName = "removeFromFavoriteList(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,29 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GitHubRepositories/Features/Main/ViewModel/MainViewModel.swift"
-            timestampString = "581020352.42665"
+            filePath = "GitHubRepositories/Features/Main/View/MainVC.swift"
+            timestampString = "581024955.029339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "addToFavoriteList(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GitHubRepositories/Features/Main/ViewModel/MainViewModel.swift"
-            timestampString = "581020352.4272"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "removeToFavoriteList(_:)"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "blindUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -38,6 +38,12 @@ class MainVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        switch state {
+        case .normal:
+            viewModel.showFavoristList()
+        case .searching:
+            viewModel.showSearchingList()
+        }
     }
 
     private func blindUI() {
@@ -64,7 +70,7 @@ class MainVC: UIViewController {
         viewModel.searchResult.asObservable().bind(to: searchingTableView.rx.items(cellIdentifier: "SearchingCell", cellType: SearchingCell.self)){ (index, repo, cell) in
             cell.didTapTick = {
                 if repo.isTicked {
-                    self.viewModel.removeToFavoriteList(index)
+                    self.viewModel.removeFromFavoriteList(index)
                 } else {
                     self.viewModel.addToFavoriteList(index)
                 }
@@ -75,6 +81,7 @@ class MainVC: UIViewController {
 
         normalTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
+                self?.normalTableView.deselectRow(at: indexPath, animated: true)
                 if let cell = self?.normalTableView.cellForRow(at: indexPath) as? NormalCell,
                     let repo = cell.repository {
                     self?.closeKeyboard()
@@ -84,7 +91,12 @@ class MainVC: UIViewController {
 
         searchingTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                self?.closeKeyboard()
+                self?.searchingTableView.deselectRow(at: indexPath, animated: true)
+                if let cell = self?.searchingTableView.cellForRow(at: indexPath) as? SearchingCell,
+                    let repo = cell.repository {
+                    self?.closeKeyboard()
+                    self?.openDetailRepositoryVC(repo)
+                }
             }).disposed(by: disposeBag)
     }
 
