@@ -21,6 +21,7 @@ class UserData: TMUserDefaults {
         static let USERNAME = "username"
         static let PASSWORD = "password"
         static let VALID_USERNAMES = "validUsernames"
+        static let INVALID_USERNAMES = "invalidUsernames"
     }
 
     var isLogin: Bool {
@@ -56,6 +57,15 @@ class UserData: TMUserDefaults {
         }
         set {
             set(newValue, forKey: ClassConstant.VALID_USERNAMES)
+        }
+    }
+
+    var invalidUsernames: [String] {
+        get {
+            return getObject(ClassConstant.INVALID_USERNAMES) as? [String] ?? []
+        }
+        set {
+            set(newValue, forKey: ClassConstant.INVALID_USERNAMES)
         }
     }
 }

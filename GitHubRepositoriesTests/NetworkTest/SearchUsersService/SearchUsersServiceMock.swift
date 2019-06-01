@@ -10,7 +10,7 @@ import Foundation
 @testable import GitHubRepositories
 
 class SearchUsersServiceMock: SearchUsersFetch {
-    func searchUsers(keyword: String, success: @escaping ([String]) -> Void, failure: @escaping () -> Void) {
+    func searchUsers(keyword: String, success: @escaping ([String]) -> Void, failure: @escaping (SearchUsersFetchError) -> Void) {
         var rawData = [String: Any]()
         let bundle = Bundle(for: SearchUsersServiceMock.self)
         if let path = bundle.path(forResource: "UserResponse", ofType: "json") {
@@ -23,17 +23,19 @@ class SearchUsersServiceMock: SearchUsersFetch {
                 }
             } catch {
                 // handle error
-                failure()
+                failure(.notFound)
             }
         }
 
         guard let totalCount = rawData[APIConstants.Common.TOTAL_COUNT] as? Int,
-            totalCount > 0,
-            let items = rawData[APIConstants.Common.ITEMS] as? [[String: Any]],
-            items.count > 0
+            let items = rawData[APIConstants.Common.ITEMS] as? [[String: Any]]
             else {
-                failure()
+                failure(.notFound)
                 return
+        }
+        guard totalCount > 0 else {
+            failure(.invalidData)
+            return
         }
         var validUsernames: [String] =  []
         for item in items {
@@ -42,7 +44,7 @@ class SearchUsersServiceMock: SearchUsersFetch {
             }
         }
         if validUsernames.isEmpty {
-            failure()
+            failure(.invalidData)
         } else {
             success(validUsernames)
         }

@@ -8,20 +8,28 @@
 
 import Alamofire
 
+enum SearchUsersFetchError {
+    case invalidData
+    case notFound
+    case noConnection
+}
+
 protocol SearchUsersFetch {
-    func searchUsers(keyword: String, success: @escaping ([String]) -> Void, failure: @escaping () -> Void)
+    func searchUsers(keyword: String, success: @escaping ([String]) -> Void, failure: @escaping (SearchUsersFetchError) -> Void)
 }
 
 class SearchUsersService: SearchUsersFetch {
-    func searchUsers(keyword: String, success: @escaping ([String]) -> Void, failure: @escaping () -> Void) {
+    func searchUsers(keyword: String, success: @escaping ([String]) -> Void, failure: @escaping (SearchUsersFetchError) -> Void) {
         APIClient.cancelAllRequests()
         APIClient.loadData(request: APIRouter.searchUsers(keyword: keyword), didFinishWithSuccess: { rawData in
             guard let totalCount = rawData[APIConstants.Common.TOTAL_COUNT] as? Int,
-                totalCount > 0,
-                let items = rawData[APIConstants.Common.ITEMS] as? [[String: Any]],
-                items.count > 0
+                let items = rawData[APIConstants.Common.ITEMS] as? [[String: Any]]
             else {
-                failure()
+                failure(.notFound)
+                return
+            }
+            guard totalCount > 0 else {
+                failure(.invalidData)
                 return
             }
             var validUsernames: [String] =  []
@@ -31,12 +39,12 @@ class SearchUsersService: SearchUsersFetch {
                 }
             }
             if validUsernames.isEmpty {
-                failure()
+                failure(.invalidData)
             } else {
                 success(validUsernames)
             }
         }, didFinishWithError: { _, _ in
-            failure()
+            failure(.noConnection)
         })
     }
 }

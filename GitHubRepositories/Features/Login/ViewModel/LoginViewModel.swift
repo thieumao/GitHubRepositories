@@ -40,7 +40,7 @@ class LoginViewModel: NSObject {
 
     // Mark: Validate Username
     private func validateUsername(_ text: String) {
-        if text.isEmpty {
+        if text.isEmpty || checkInvalidUsernameInCache(text) {
             isValidUsername.accept(false)
             return
         }
@@ -52,8 +52,12 @@ class LoginViewModel: NSObject {
             guard let self = self else { return }
             self.cacheValidUsernames(usernames)
             self.isValidUsername.accept(true)
-        }, failure: { [weak self] in
-            self?.isValidUsername.accept(false)
+        }, failure: { [weak self] error in
+            guard let self = self else { return }
+            if error == .invalidData {
+                self.cacheInvalidUsernames(with: text)
+            }
+            self.isValidUsername.accept(false)
         })
     }
 
@@ -83,6 +87,18 @@ class LoginViewModel: NSObject {
         UserData.sharedInstance().isLogin = true
         UserData.sharedInstance().username = username.value
         UserData.sharedInstance().password = password.value
+    }
+
+    func cacheInvalidUsernames(with keyword: String) {
+        var currentInvalidUsernames = UserData.sharedInstance().invalidUsernames
+        if !currentInvalidUsernames.contains(keyword) {
+            currentInvalidUsernames.append(keyword)
+        }
+        UserData.sharedInstance().invalidUsernames = currentInvalidUsernames
+    }
+
+    func checkInvalidUsernameInCache(_ text: String) -> Bool {
+        return UserData.sharedInstance().invalidUsernames.contains(text)
     }
 
     func cacheValidUsernames(_ usernames: [String]) {

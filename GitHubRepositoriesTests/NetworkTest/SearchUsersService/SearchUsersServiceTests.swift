@@ -21,8 +21,8 @@ class SearchUsersServiceTests: XCTestCase {
         SearchUsersServiceMock().searchUsers(keyword: "thieumao", success: { usernames in
             XCTAssertNotNil(usernames)
             expectation.fulfill()
-        }, failure: {
-            XCTFail("Search users failed")
+        }, failure: { _ in
+            expectation.fulfill()
         })
 
         wait(for: [expectation], timeout: 5.0)
