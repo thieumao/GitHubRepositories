@@ -230,7 +230,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="DetailRepository"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="DetailRepositoryScreen"/>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="136.80000000000001" y="91.304347826086968"/>
         </view>

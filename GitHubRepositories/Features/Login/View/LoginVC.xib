@@ -63,6 +63,9 @@
                 <constraint firstItem="rSL-JV-bSt" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="xV5-Oh-tr6"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="LoginScreen"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="jol-4O-sih" appends="YES" id="0Bk-0f-FhV"/>
             </connections>

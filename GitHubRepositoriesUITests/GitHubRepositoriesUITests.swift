@@ -21,36 +21,56 @@ class GitHubRepositoriesUITests: XCTestCase {
 
     func testOpenDetailRepoFlow() {
         let app = XCUIApplication()
-
-        // login with username = "thieumao" & password = "123456"
         app.screenshot()
-        let username = app.textFields["username"]
-        username.tap()
-        username.typeText("thieumao")
 
-        let password = app.secureTextFields["password"]
-        password.tap()
-        password.typeText("123456")
+        if app.otherElements["LoginScreen"].exists {
+            // login with username = "thieumao" & password = "123456"
+            let usernameTextField = app.textFields["username"]
+            usernameTextField.tap()
+            usernameTextField.typeText("thieumao")
 
-        sleep(1)
-        app.buttons["Login"].tap()
+            let passwordTextField = app.secureTextFields["password"]
+            passwordTextField.tap()
+            passwordTextField.typeText("123456")
+
+            let loginButton = app.buttons["Login"]
+
+            // wait 1s for validate username & password
+            // sleep(1)
+
+            // wait for loginButton.isEnabled == true
+            let isEnabledPredicate = NSPredicate(format: "isEnabled == true")
+            expectation(for: isEnabledPredicate, evaluatedWith: loginButton, handler: nil)
+            waitForExpectations(timeout: 5, handler: nil)
+
+            loginButton.tap()
+            app.screenshot()
+        }
 
         // search with text ="thieumao"
-        app.screenshot()
-        let search = app.textFields["Search"]
-        search.tap()
-        search.typeText("thieumao")
-        sleep(3)
+        let searchTextField = app.textFields["Search"]
+        searchTextField.tap()
+        searchTextField.typeText("thieumao")
 
-        // open Detail Repository Screen
+
+        // wait 3s for searching
+        // sleep(3)
+
+        // wait for "thieumao/thieumao.github.io" label to appear
+        let label = app.staticTexts["thieumao/thieumao.github.io"]
+        let exists = NSPredicate(format: "exists == true")
+        expectation(for: exists, evaluatedWith: label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+
+        // open DetailRepository Screen
         app.screenshot()
         let tableView = app.tables.element(boundBy: 0)
         let cell = tableView.cells.element(boundBy: 0)
         cell.tap()
 
+        // check DetailRepository Screen did appear
         app.screenshot()
-        let isShown = app.otherElements["DetailRepository"].exists
-
+        let isShown = app.otherElements["DetailRepositoryScreen"].exists
         XCTAssertTrue(isShown)
     }
 }
