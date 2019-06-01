@@ -26,13 +26,13 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         title = Constants.Titles.LOGIN
         usernameTextField.delegate = self
+        blindUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         clearTextFields()
-        viewModel?.bindingData()
-        blindUI()
+        viewModel?.resetData()
         if UserData.sharedInstance().isLogin {
             openMainScreen()
         }

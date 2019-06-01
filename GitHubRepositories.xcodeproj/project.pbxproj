@@ -34,6 +34,9 @@
 		0C59B427229DCF0B00C12241 /* TMUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B426229DCF0B00C12241 /* TMUserDefaults.swift */; };
 		0C59B429229DCFD100C12241 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B428229DCFD100C12241 /* UserData.swift */; };
 		0C59B42B229DD16200C12241 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C59B42A229DD16200C12241 /* NSObject+Extension.swift */; };
+		0C79D2CD22A2964600B549F1 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D2CC22A2964600B549F1 /* LoginViewModelTests.swift */; };
+		0C79D2CF22A2965E00B549F1 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D2CE22A2965E00B549F1 /* MainViewModelTests.swift */; };
+		0C79D2D122A2967700B549F1 /* DetailRepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79D2D022A2967700B549F1 /* DetailRepositoryViewModel.swift */; };
 		0C85D87622A18114005D77E0 /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87422A18114005D77E0 /* NormalCell.swift */; };
 		0C85D87722A18114005D77E0 /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C85D87522A18114005D77E0 /* NormalCell.xib */; };
 		0C85D87922A18C01005D77E0 /* RepoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C85D87822A18C01005D77E0 /* RepoData.swift */; };
@@ -101,6 +104,9 @@
 		0C59B426229DCF0B00C12241 /* TMUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMUserDefaults.swift; sourceTree = "<group>"; };
 		0C59B428229DCFD100C12241 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		0C59B42A229DD16200C12241 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		0C79D2CC22A2964600B549F1 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		0C79D2CE22A2965E00B549F1 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
+		0C79D2D022A2967700B549F1 /* DetailRepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRepositoryViewModel.swift; sourceTree = "<group>"; };
 		0C85D87422A18114005D77E0 /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
 		0C85D87522A18114005D77E0 /* NormalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
 		0C85D87822A18C01005D77E0 /* RepoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoData.swift; sourceTree = "<group>"; };
@@ -194,6 +200,9 @@
 		0C0371F8229B9F50003E4B3A /* GitHubRepositoriesTests */ = {
 			isa = PBXGroup;
 			children = (
+				0C79D2CB22A295F700B549F1 /* DetailRepositoryTest */,
+				0C79D2CA22A295F000B549F1 /* MainTest */,
+				0C065B2D22A29542002F952B /* LoginTest */,
 				0C08255022A1DCC0006AFAF4 /* NetworkTest */,
 				0C0371FB229B9F50003E4B3A /* Info.plist */,
 			);
@@ -311,6 +320,14 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		0C065B2D22A29542002F952B /* LoginTest */ = {
+			isa = PBXGroup;
+			children = (
+				0C79D2CC22A2964600B549F1 /* LoginViewModelTests.swift */,
+			);
+			path = LoginTest;
+			sourceTree = "<group>";
+		};
 		0C08255022A1DCC0006AFAF4 /* NetworkTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +391,22 @@
 				0C1DD6BD22A06D4200EECCAD /* DetailRepositoryVC.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0C79D2CA22A295F000B549F1 /* MainTest */ = {
+			isa = PBXGroup;
+			children = (
+				0C79D2CE22A2965E00B549F1 /* MainViewModelTests.swift */,
+			);
+			path = MainTest;
+			sourceTree = "<group>";
+		};
+		0C79D2CB22A295F700B549F1 /* DetailRepositoryTest */ = {
+			isa = PBXGroup;
+			children = (
+				0C79D2D022A2967700B549F1 /* DetailRepositoryViewModel.swift */,
+			);
+			path = DetailRepositoryTest;
 			sourceTree = "<group>";
 		};
 		0C85D87A22A1CA84005D77E0 /* Controllers */ = {
@@ -685,9 +718,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C79D2CD22A2964600B549F1 /* LoginViewModelTests.swift in Sources */,
 				0C065B2C22A258DB002F952B /* SearchRepositoriesServiceTests.swift in Sources */,
 				0C08255A22A1E03A006AFAF4 /* SearchUsersServiceTests.swift in Sources */,
+				0C79D2CF22A2965E00B549F1 /* MainViewModelTests.swift in Sources */,
 				0C08255822A1DE98006AFAF4 /* SearchUsersServiceMock.swift in Sources */,
+				0C79D2D122A2967700B549F1 /* DetailRepositoryViewModel.swift in Sources */,
 				0C065B2A22A255FE002F952B /* SearchRepositoriesServiceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

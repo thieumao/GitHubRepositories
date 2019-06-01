@@ -65,7 +65,7 @@ class MainVC: UIViewController {
         }).disposed(by: disposeBag)
 
         searchTextField.rx.text.orEmpty
-            .throttle(2, scheduler: MainScheduler.instance)
+            .debounce(.milliseconds(800), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .asObservable().bind(to: viewModel.searchInput).disposed(by: disposeBag)
 

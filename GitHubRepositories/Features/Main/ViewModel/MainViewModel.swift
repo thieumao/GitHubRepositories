@@ -9,20 +9,18 @@
 import RxSwift
 import RxCocoa
 
-class MainViewModel: NSObject {
+class MainViewModel {
     let disposeBag = DisposeBag()
-    var isSearching = BehaviorRelay<Bool>(value: false)
-    var searchInput = BehaviorRelay<String>(value: "")
-    var searchResult = BehaviorRelay<[Repository]>(value: [])
-    var normalResult = BehaviorRelay<[Repository]>(value: [])
+    let isSearching = BehaviorRelay<Bool>(value: false)
+    let searchInput = BehaviorRelay<String>(value: "")
+    let searchResult = BehaviorRelay<[Repository]>(value: [])
+    let normalResult = BehaviorRelay<[Repository]>(value: [])
 
-    override init() {
-        super.init()
+    init() {
         bindingData()
-        showFavoristList()
     }
 
-    func bindingData() {
+    private func bindingData() {
         searchInput.asObservable().subscribe(onNext: { [weak self] text in
             self?.searchRepositories(text)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
@@ -32,6 +30,7 @@ class MainViewModel: NSObject {
         isSearching.accept(false)
         let favoriteList = RepoData.sharedInstance().favoriteRepositories
         normalResult.accept(favoriteList)
+        searchResult.accept([])
     }
 
     func showSearchingList() {

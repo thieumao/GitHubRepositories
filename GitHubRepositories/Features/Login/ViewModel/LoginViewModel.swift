@@ -9,15 +9,19 @@
 import RxSwift
 import RxCocoa
 
-class LoginViewModel: NSObject {
-    var username = BehaviorRelay<String>(value: "")
-    var password = BehaviorRelay<String>(value: "")
-    var isValidUsername = BehaviorRelay<Bool>(value: false)
-    var isValidPassword = BehaviorRelay<Bool>(value: false)
-    var isValid = BehaviorRelay<Bool>(value: false)
+class LoginViewModel {
+    let username = BehaviorRelay<String>(value: "")
+    let password = BehaviorRelay<String>(value: "")
+    let isValidUsername = BehaviorRelay<Bool>(value: false)
+    let isValidPassword = BehaviorRelay<Bool>(value: false)
+    let isValid = BehaviorRelay<Bool>(value: false)
     let disposeBag = DisposeBag()
 
-    func bindingData() {
+    init() {
+        bindingData()
+    }
+
+    private func bindingData() {
         password.asObservable().subscribe(onNext: { [weak self] text in
             guard let self = self else { return }
             self.isValidPassword.accept(self.validatePassword(text))
@@ -36,6 +40,12 @@ class LoginViewModel: NSObject {
             guard let self = self else { return }
             self.isValid.accept(value && self.isValidPassword.value)
         }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposeBag)
+    }
+
+    func resetData() {
+        username.accept("")
+        password.accept("")
+        isValid.accept(false)
     }
 
     // Mark: Validate Username
@@ -62,18 +72,18 @@ class LoginViewModel: NSObject {
     }
 
     // Mark: Validate Password
-    private func validatePassword(_ text: String) -> Bool {
+    func validatePassword(_ text: String) -> Bool {
         if text.isEmpty {
             return false
         }
         return is6DigitNumber(text: text) && !isAllSameDigit(text: text)
     }
 
-    private func is6DigitNumber(text: String) -> Bool {
+    func is6DigitNumber(text: String) -> Bool {
         return validatePattern(text: text, regex: "[0-9]{6}")
     }
 
-    private func isAllSameDigit(text: String) -> Bool {
+    func isAllSameDigit(text: String) -> Bool {
         return validatePattern(text: text, regex: "^(.)\\1*$")
     }
 
@@ -82,7 +92,7 @@ class LoginViewModel: NSObject {
         return passwordTest.evaluate(with: text)
     }
 
-    // Mark: Others
+    // Mark: Save & Cache
     func saveUserInfo() {
         UserData.sharedInstance().isLogin = true
         UserData.sharedInstance().username = username.value

@@ -30,7 +30,7 @@ class DetailRepositoryVC: UIViewController {
         let deleteButton = UIBarButtonItem(title: Constants.Buttons.DELETE,
                                            style: .done, target: self,
                                            action: #selector(deleteButtonTapped))
-        let isShowedDeleteButton = viewModel?.isShowedDeleteButton.value ?? false
+        let isShowedDeleteButton = viewModel?.checkShowDeleteButton() ?? false
         navigationItem.rightBarButtonItem = isShowedDeleteButton ? deleteButton : nil
         blindUI()
     }

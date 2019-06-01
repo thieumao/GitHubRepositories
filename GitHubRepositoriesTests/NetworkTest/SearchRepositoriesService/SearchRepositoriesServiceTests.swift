@@ -11,9 +11,11 @@ import XCTest
 
 class SearchRepositoriesServiceTests: XCTestCase {
     override func setUp() {
+        super.setUp()
     }
 
     override func tearDown() {
+        super.tearDown()
     }
 
     func testSearchRepositories() {
