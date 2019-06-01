@@ -1,0 +1,27 @@
+{
+    "total_count": 1,
+    "incomplete_results": false,
+    "items": [
+        {
+            "login": "thieumao",
+            "id": 3391069,
+            "node_id": "MDQ6VXNlcjMzOTEwNjk=",
+            "avatar_url": "https://avatars0.githubusercontent.com/u/3391069?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/thieumao",
+            "html_url": "https://github.com/thieumao",
+            "followers_url": "https://api.github.com/users/thieumao/followers",
+            "following_url": "https://api.github.com/users/thieumao/following{/other_user}",
+            "gists_url": "https://api.github.com/users/thieumao/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/thieumao/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/thieumao/subscriptions",
+            "organizations_url": "https://api.github.com/users/thieumao/orgs",
+            "repos_url": "https://api.github.com/users/thieumao/repos",
+            "events_url": "https://api.github.com/users/thieumao/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/thieumao/received_events",
+            "type": "User",
+            "site_admin": false,
+            "score": 101.18501
+        }
+    ]
+}
