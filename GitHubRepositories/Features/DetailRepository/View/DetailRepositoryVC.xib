@@ -229,6 +229,9 @@
                 <constraint firstItem="ze9-qa-qp0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="rRK-TY-ptF"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="DetailRepository"/>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="136.80000000000001" y="91.304347826086968"/>
         </view>
     </objects>
