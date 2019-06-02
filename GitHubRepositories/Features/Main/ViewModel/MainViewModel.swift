@@ -78,14 +78,21 @@ class MainViewModel {
         searchResult.accept(newRepos)
     }
 
-    // Mark: Search repositories
+    // MARK: Search repositories
     func searchRepositories(_ text: String) {
         guard !text.isEmpty else {
             searchResult.accept([])
             return
         }
+        guard !checkExistKeywordInCache(text) else {
+            let repos = getReposInCache(text)
+            searchResult.accept(repos)
+            return
+        }
         SearchRepositoriesService().searchRepositories(keyword: text, success: { [weak self] repos in
-            self?.updateSearchResult(repos)
+            guard let self = self else { return }
+            self.updateSearchResult(repos)
+            self.cacheRecentSearches(keyword: text, repos: repos)
         }, failure: { [weak self] in
             self?.searchResult.accept([])
         })
@@ -104,10 +111,39 @@ class MainViewModel {
         searchResult.accept(newRepos)
     }
 
-    // Mark: Others
+    // MARK: Local Data
     func removeUserInfo() {
         UserData.sharedInstance().isLogin = false
         UserData.sharedInstance().username = ""
         UserData.sharedInstance().password = ""
+    }
+
+    func cacheRecentSearches(keyword: String, repos: [Repository]) {
+        var currentRecentSearches = RepoData.sharedInstance().recentSearches
+        var dicts: [[String: Any]] = []
+        for repo in repos {
+            let dict = repo.getDictionary()
+            dicts.append(dict)
+        }
+        currentRecentSearches[keyword] = dicts
+        RepoData.sharedInstance().recentSearches = currentRecentSearches
+    }
+
+    func checkExistKeywordInCache(_ keyword: String) -> Bool {
+        let recentSearches = RepoData.sharedInstance().recentSearches
+        return recentSearches[keyword] != nil
+    }
+
+    func getReposInCache(_ keyword: String) -> [Repository] {
+        var repos: [Repository] = []
+        let recentSearches = RepoData.sharedInstance().recentSearches
+        guard let dicts = recentSearches[keyword] as? [[String: Any]]
+            else { return repos }
+        for dict in dicts {
+            if let repo = Repository(JSON: dict) {
+                repos.append(repo)
+            }
+        }
+        return repos
     }
 }

@@ -48,7 +48,7 @@ class LoginViewModel {
         isValid.accept(false)
     }
 
-    // Mark: Validate Username
+    // MARK: Validate Username
     private func validateUsername(_ text: String) {
         if text.isEmpty || checkInvalidUsernameInCache(text) {
             isValidUsername.accept(false)
@@ -71,7 +71,7 @@ class LoginViewModel {
         })
     }
 
-    // Mark: Validate Password
+    // MARK: Validate Password
     func validatePassword(_ text: String) -> Bool {
         if text.isEmpty {
             return false
@@ -92,7 +92,7 @@ class LoginViewModel {
         return passwordTest.evaluate(with: text)
     }
 
-    // Mark: Save & Cache
+    // MARK: Local Data
     func saveUserInfo() {
         UserData.sharedInstance().isLogin = true
         UserData.sharedInstance().username = username.value

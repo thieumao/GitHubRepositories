@@ -15,6 +15,7 @@ class RepoData: TMUserDefaults {
 
     struct ClassConstant {
         static let FAVORITE_REPOSITORIES = "favoriteRepositories"
+        static let RECENT_SEARCHES = "recentSearches"
     }
 
     var favoriteRepositories: [Repository] {
@@ -34,6 +35,15 @@ class RepoData: TMUserDefaults {
                 list.append(repo.getDictionary())
             }
             set(list, forKey: ClassConstant.FAVORITE_REPOSITORIES)
+        }
+    }
+
+    var recentSearches: [String : Any] {
+        get {
+            return getObject(ClassConstant.RECENT_SEARCHES) as? [String : Any] ?? [:]
+        }
+        set {
+            set(newValue, forKey: ClassConstant.RECENT_SEARCHES)
         }
     }
 }
