@@ -21,9 +21,9 @@ class MainVC: UIViewController {
     @IBOutlet weak var searchingTableView: UITableView!
     @IBOutlet weak var normalTableView: UITableView!
 
-    var state: MainState = .normal
-    let disposeBag = DisposeBag()
-    var viewModel: MainViewModel?
+    private var state: MainState = .normal
+    private let disposeBag = DisposeBag()
+    private var viewModel: MainViewModel?
 
     func injectViewModel(with mainViewModel: MainViewModel) {
         viewModel = mainViewModel

@@ -10,11 +10,11 @@ import RxSwift
 import RxCocoa
 
 class MainViewModel {
-    let disposeBag = DisposeBag()
     let isSearching = BehaviorRelay<Bool>(value: false)
     let searchInput = BehaviorRelay<String>(value: "")
     let searchResult = BehaviorRelay<[Repository]>(value: [])
     let normalResult = BehaviorRelay<[Repository]>(value: [])
+    private let disposeBag = DisposeBag()
 
     init() {
         bindingData()
@@ -116,6 +116,7 @@ class MainViewModel {
         UserData.sharedInstance().isLogin = false
         UserData.sharedInstance().username = ""
         UserData.sharedInstance().password = ""
+        clearCache()
     }
 
     func cacheRecentSearches(keyword: String, repos: [Repository]) {
@@ -145,5 +146,9 @@ class MainViewModel {
             }
         }
         return repos
+    }
+
+    func clearCache() {
+        RepoData.sharedInstance().recentSearches = [:]
     }
 }

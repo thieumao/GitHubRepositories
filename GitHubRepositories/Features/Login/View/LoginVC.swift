@@ -15,8 +15,8 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
 
-    let disposeBag = DisposeBag()
-    var viewModel: LoginViewModel?
+    private let disposeBag = DisposeBag()
+    private var viewModel: LoginViewModel?
 
     func injectViewModel(with loginViewModel: LoginViewModel) {
         viewModel = loginViewModel

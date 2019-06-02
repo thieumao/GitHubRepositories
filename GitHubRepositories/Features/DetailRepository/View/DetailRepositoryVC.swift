@@ -17,8 +17,8 @@ class DetailRepositoryVC: UIViewController {
     @IBOutlet weak var forkCountLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
 
-    let disposeBag = DisposeBag()
-    var viewModel: DetailRepositoryViewModel?
+    private let disposeBag = DisposeBag()
+    private var viewModel: DetailRepositoryViewModel?
 
     func injectViewModel(with detailRepositoryViewModel: DetailRepositoryViewModel) {
         viewModel = detailRepositoryViewModel

@@ -16,7 +16,7 @@ class DetailRepositoryViewModel {
     let forkCount = BehaviorRelay<String>(value: "0")
     let language = BehaviorRelay<String>(value: "")
 
-    var repository: Repository
+    private var repository: Repository
 
     init(repository: Repository) {
         self.repository = repository

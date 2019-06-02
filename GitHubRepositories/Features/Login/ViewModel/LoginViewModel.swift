@@ -15,7 +15,7 @@ class LoginViewModel {
     let isValidUsername = BehaviorRelay<Bool>(value: false)
     let isValidPassword = BehaviorRelay<Bool>(value: false)
     let isValid = BehaviorRelay<Bool>(value: false)
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     init() {
         bindingData()
@@ -49,7 +49,7 @@ class LoginViewModel {
     }
 
     // MARK: Validate Username
-    private func validateUsername(_ text: String) {
+    func validateUsername(_ text: String) {
         if text.isEmpty || checkInvalidUsernameInCache(text) {
             isValidUsername.accept(false)
             return
@@ -97,6 +97,7 @@ class LoginViewModel {
         UserData.sharedInstance().isLogin = true
         UserData.sharedInstance().username = username.value
         UserData.sharedInstance().password = password.value
+        clearCache()
     }
 
     func cacheInvalidUsernames(with keyword: String) {
@@ -123,5 +124,10 @@ class LoginViewModel {
 
     func checkValidUsernameInCache(_ text: String) -> Bool {
         return UserData.sharedInstance().validUsernames.contains(text)
+    }
+
+    func clearCache() {
+        UserData.sharedInstance().validUsernames = []
+        UserData.sharedInstance().invalidUsernames = []
     }
 }
